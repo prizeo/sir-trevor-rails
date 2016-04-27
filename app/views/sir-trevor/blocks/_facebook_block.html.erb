@@ -11,10 +11,10 @@
 %>
 <div class="content-block facebook-post-block">
 	<% if ['post','photo'].include?(block['facebook_embed_type']) %>
-		<div class="fb-post" data-width="610" data-href="<%= url %>">
+		<div class="fb-post" data-width="638" data-href="<%= url %>">
 		</div>
 	<% elsif block['facebook_embed_type'] == 'video' %>
-		<div class="fb-video" data-width="610" data-href="<%= url %>" data-show-text="true">
+		<div class="fb-video" data-width="638" data-href="<%= url %>" data-show-text="true">
 		</div>
 	<% else raise 'Unknown Facebook embed type' end %>
 </div>
