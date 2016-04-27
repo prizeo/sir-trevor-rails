@@ -1,0 +1,9 @@
+<div class="content-block instagram-block">
+  <%=
+    if block['instagram_embed_code'].html_safe.match(/\<blockquote (.*)\<\/blockquote>(\s+)\<script async defer src\=\"\/\/platform\.instagram\.com\/en_US\/embeds\.js\"\>\<\/script\>/)
+      block['instagram_embed_code'].html_safe
+    else
+      ''
+    end
+  %>
+</div>

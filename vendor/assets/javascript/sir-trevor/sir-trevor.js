@@ -248,6 +248,7 @@
           video: 'https://www.youtube.com/watch?v=IAISUDbjXj0',
           tweet: 'https://twitter.com/Represent/status/469872519860596736',
           facebook: 'https://www.facebook.com/representdotcom/posts/259128877616997',
+          instagram: 'https://www.instagram.com/p/BDRIgB0mAEd',
           soundcloud: '&#x3C;iframe width=&#x22;100%&#x22; height=&#x22;166&#x22; scrolling=&#x22;no&#x22; frameborder=&#x22;no&#x22; src=&#x22;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/34019569&#x26;color=0066cc&#x22;&#x3E;&#x3C;/iframe&#x3E;'
         },
         'upload':           '...or choose a file',
@@ -268,7 +269,8 @@
         video: "Paste your Youtube, Vimeo, Dailymotion or Vine video URL here",
         facebook: "Paste your Facebook post's URL or embed code here",
         tweet: "Paste your tweet's URL or embed code here",
-        soundcloud: "Paste your Soundcloud embed code here"
+        soundcloud: "Paste your Soundcloud embed code here",
+        instagram: "Paste URL of instagram post"
       },
       blocks: {
         text: {
@@ -306,6 +308,9 @@
         },
         soundcloud: {
           title: 'Soundcloud'
+        },
+        instagram: {
+          'title': "Instagram"
         }
       }
     }
@@ -2154,6 +2159,65 @@
       }
     });
   })();
+  SirTrevor.Blocks.Instagram = (function(){
+    var instagram_template = _.template([
+      "<iframe src=\"https://instagram.com/p/<%= instagram_id %>/embed/\" width=\"534\" height=\"610\" frameborder=\"0\" scrolling=\"no\" allowtransparency=\"true\"></iframe>"
+    ].join("\n"));
+
+    return SirTrevor.Block.extend({
+      type: "instagram",
+      hasDescription: true,
+      pastable: true,
+      fetchable: true,
+  
+      title: function(){ return i18n.t('blocks:instagram:title'); },
+  
+      icon_name: 'instagram',
+  
+      loadData: function(data) {
+        var that = this;
+        var xhr = $.ajax({
+          url: 'https://api.instagram.com/oembed/?url='+data.url,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'jsonp',
+          type: 'GET'
+        });
+      
+        xhr.done(function(response){
+          that.setData({instagram_embed_code: response.html});
+          that.$inner.prepend(response.html);  
+        }).fail(function(){
+          SirTrevor.log("Unable to embed instagram post");
+        })
+      },
+  
+      onContentPasted: function(event){
+        // Content pasted. Delegate to the drop parse method
+        var input = $(event.target),
+            val = input.val();
+  
+        // Pass this to the same handler as onDrop
+        this.handleInstagramDropPaste(val);
+      },
+  
+      handleInstagramDropPaste: function(url){
+        if (!this.validInstagramUrl(url)) {
+          SirTrevor.log("Invalid Instagram URL");
+          return;
+        }
+        var instagramMatch = url.match(/(?:https:\/\/)?(?:www.)?instagram.com\/p\/([^\d]*)/i);
+        if (!_.isEmpty(instagramMatch)) {
+          this.setAndLoadData({url: url});
+        }
+      },
+  
+      validInstagramUrl: function(url) {
+        return (url.indexOf("instagram.com") !== -1);
+      }
+    });
+  })();  
   /*
     Unordered List
   */
