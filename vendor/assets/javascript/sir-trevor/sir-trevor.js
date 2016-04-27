@@ -2047,7 +2047,7 @@
 
       title: function(){ return i18n.t('blocks:facebook:title'); },
 
-      icon_name: 'default', // TODO: embed new icon into SirTrevor's icon font
+      icon_name: 'facebook', // TODO: embed new icon into SirTrevor's icon font
 
       loadData: function(data) {
         if (_.isUndefined(data.status_url)) { data.status_url = ''; }
@@ -2296,7 +2296,7 @@
       return i18n.t('blocks:soundcloud:title');
     },
 
-    icon_name: 'video',
+    icon_name: 'soundcloud',
 
     loadData: function (data) {
       embed = this.config.html
