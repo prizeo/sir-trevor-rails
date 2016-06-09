@@ -2096,11 +2096,17 @@
         if (!_.isEmpty(match)) {
           this.setAndLoadData({ facebook_post_id: match[1], facebook_embed_type: 'photo' });
         }
+
+        // Add support for new photo url format (ttps://www.facebook.com/poster/photos/a.99.99.999/259128877616997/?type=3&theater)
+        match = url.match(/(?:https?\:\/\/)?(?:www\.)?facebook\.com\/([^\?\/\\&%#]+)\/photos\/(?:.+)\/(\d+)\//i);
+        if (!_.isEmpty(match)) {
+          this.setAndLoadData({ facebook_poster: match[1], facebook_post_id: match[2], facebook_embed_type: 'photo' });
+        }
       },
 
       validFacebookPostUrl: function(url) {
         return url.indexOf("facebook") !== -1 &&
-          (url.indexOf("posts") !== -1 || url.indexOf("fbid") !== -1 || url.indexOf("videos") !== -1);
+          (url.indexOf("posts") !== -1 || url.indexOf("fbid") !== -1 || url.indexOf("videos") !== -1 || url.indexOf("photos") !== -1);
       }
     });
   })();
