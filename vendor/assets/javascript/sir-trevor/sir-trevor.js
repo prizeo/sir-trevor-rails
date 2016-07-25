@@ -2085,7 +2085,7 @@
         }
 
         // Video embedding
-        var match = url.match(/(?:https?\:\/\/)?(?:www\.)?facebook\.com\/([^\?\/\\&%#]+)\/videos\/(\d+)/i);
+        var match = url.match(/(?:https?\:\/\/)?(?:www\.)?facebook\.com\/([^\?\/\\&%#]+)\/videos(?:\/(?:.+))?\/(\d+)/i);
         if (!_.isEmpty(match)) {
           this.setAndLoadData({ facebook_poster: match[1], facebook_post_id: match[2], facebook_embed_type: 'video' });
         }
