@@ -886,8 +886,7 @@
   
       this.drop_options = _.extend({}, SirTrevor.DEFAULTS.Block.drop_options, this.drop_options);
   
-      var drop_html = $(_.template(this.drop_options.html,
-                        { block: this }));
+      var drop_html = $(_.template(this.drop_options.html)({ block: this }));
   
       this.$editor.hide();
       this.$inputs.append(drop_html);
@@ -963,7 +962,7 @@
   
       this.paste_options = _.extend({}, SirTrevor.DEFAULTS.Block.paste_options, this.paste_options);
 
-      this.$inputs.append(_.template(this.paste_options.html, {block: this}));
+      this.$inputs.append(_.template(this.paste_options.html)({block: this}));
   
       this.$('.st-paste-block')
         .bind('click', function(){ $(this).select(); })
@@ -983,7 +982,7 @@
       this.withMixin(SirTrevor.BlockMixins.Ajaxable);
   
       this.upload_options = _.extend({}, SirTrevor.DEFAULTS.Block.upload_options, this.upload_options);
-      this.$inputs.append(_.template(this.upload_options.html, this));
+      this.$inputs.append(_.template(this.upload_options.html)(this));
     },
   
     uploader: function(file, success, failure){
@@ -999,8 +998,7 @@
       SirTrevor.log("Adding description to block " + this.blockID);
 
       this.description_options = _.extend({}, SirTrevor.DEFAULTS.Block.description_options, this.description_options);
-      var description_html = $(_.template(this.description_options.html,
-          { block: this }));
+      var description_html = $(_.template(this.description_options.html)({ block: this }));
 
       this.$editor.hide();
       this.$inputs.append(description_html);
@@ -2241,7 +2239,7 @@
       icon_name: 'list',
   
       editorHTML: function() {
-        return _.template(template, this);
+        return _.template(template)(this);
       },
   
       loadData: function(data){
