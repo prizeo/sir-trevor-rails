@@ -2182,7 +2182,7 @@
         var that = this;
 
         // Add https:// if no protocol is specified
-        if (data.url.indexOf('http://') == -1 && data.url.indexOf('https://')) {
+        if (data.url.indexOf('http://') == -1 && data.url.indexOf('https://') == -1) {
           data.url = 'https://' + data.url;
         }
         
