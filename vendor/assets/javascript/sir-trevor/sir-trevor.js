@@ -2180,6 +2180,12 @@
   
       loadData: function(data) {
         var that = this;
+
+        // Add https:// if no protocol is specified
+        if (data.url.indexOf('http://') == -1 && data.url.indexOf('https://')) {
+          data.url = 'https://' + data.url;
+        }
+        
         var xhr = $.ajax({
           url: 'https://api.instagram.com/oembed/?url='+data.url,
           cache: false,
