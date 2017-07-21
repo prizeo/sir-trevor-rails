@@ -285,7 +285,8 @@
         },
         image: {
           'title': "Image",
-          'upload_error': "There was a problem with your upload"
+          'upload_error': "There was a problem with your upload",
+          'filetype_error': "Invalid image extension. Please select a JPG file"
         },
         video: {
           'title': "Video"
@@ -1494,7 +1495,7 @@
     var upload_options = {
       html: [
         '<div class="st-block__upload-container">',
-        '<input type="file" type="st-file-upload">',
+        '<input type="file" type="st-file-upload" accept=".jpg, .jpeg">',
         '<button class="st-upload-btn"><%= i18n.t("general:upload") %></button>',
         '</div>'
       ].join('\n')
@@ -1975,7 +1976,7 @@
           urlAPI = (typeof URL !== "undefined") ? URL : (typeof webkitURL !== "undefined") ? webkitURL : null;
   
       // Handle one upload at a time
-      if (/image/.test(file.type)) {
+      if (/image\/jpeg/.test(file.type)) {
         this.loading();
         // Show this image on here
         this.$inputs.hide();
@@ -1994,6 +1995,8 @@
             this.ready();
           }
         );
+      } else {
+      	this.addMessage(i18n.t('blocks:image:filetype_error'));
       }
     }
   });
