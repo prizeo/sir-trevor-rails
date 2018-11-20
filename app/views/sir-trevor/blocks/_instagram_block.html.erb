@@ -2,7 +2,8 @@
   <%=
     instagram_block_patterns = [
       /<blockquote (.*)<\/blockquote>(\s+)<script async defer src="\/\/platform\.instagram\.com\/en_US\/embeds\.js"><\/script>/,
-      /<blockquote (.*)<\/blockquote>(\s+)<script async defer src="\/\/www\.instagram\.com\/embed\.js"><\/script>/
+      /<blockquote (.*)<\/blockquote>(\s+)<script async defer src="\/\/www\.instagram\.com\/embed\.js"><\/script>/,
+      /<blockquote (.*)<\/blockquote>(\s+)<script async src="\/\/www\.instagram\.com\/embed\.js"><\/script>/
     ]
     if block['instagram_embed_code'] && instagram_block_patterns.any? { |pattern| pattern.match(block['instagram_embed_code'].html_safe) }
       block['instagram_embed_code'].html_safe
